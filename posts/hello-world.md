@@ -7,8 +7,9 @@ tags: [life]
 
 ---
 
-#### Why another blog? ####
+### Why another blog? ###
 
+* * * 
 
 记不清这是第几个blog了。最早的一个写了些简单无聊的短文，现在自己都找不到了；后来用msn space，微软的网页设计实在是烂，我又懒，也没更新多久；后来在blogspot上写过一些，那时候变得更加technical了一些，基本写点跟专业相关的东西，不过后来开始对数学有兴趣，发现blogspot对latex支持有限，最后又换到了wordpress. 最后还是发现写latex太痛苦，不如直接手写公式和演算过程，很多东西都写在纸上或者ipad上了，wordpress也不大用了。
 
@@ -16,7 +17,9 @@ tags: [life]
 
 这次这个blog选用了静态文件生成系统，最大的好处就是可以直接在Emacs里面写markdown然后publish到github，而Emacs是我每天都会用的东西，希望这能帮我坚持下去。
 
-#### What will be here? ####
+### What will be here? ###
+
+* * *
 
 初步的设想是技术（程序、算法、数学和金融）上的内容会用英文写，主要是一些学习内容的总结和思考，半笔记的性质，自己能看懂就行。
 
