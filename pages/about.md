@@ -8,10 +8,11 @@ Hi there, my name is Andy, and this is my blog site.
 * * *
 
 I'm interested in 
-* (functional)programming
-* mathematics(especially probability and statistics)
-* data analysis 
-* and anything that put these things together.
+
+*   (functional)programming
+*   mathematics(especially probability and statistics)
+*   data analysis 
+*   and anything that put these things together.
 
 All posts in these areas will be written in English.
 
