@@ -322,3 +322,29 @@ block traders are well informed, especially anonymous block initiators).
 block trade price can tell if it is initiated by seller or buyer, tp close to bid, initiated by seller, close to ask, initiated by buyer.(block trade happens out of public market)
 
 * value traders
+value traders are  speculator who form opinions about the value of the instruments and trade when the price is away from the value.
+
+** supply liquidity
+they are liquidity supplier because price deviating from value can only happen when 1. new informtion 2. uninformed liquidity demanders, and value traders trade in response to uninformed\
+liquidity demanders.
+uninformed liquidity demander can drive price away from value because dealers could mistakenly asses they are informed, or even when dealers know they are uninformed, they are under pressure\
+to restore their target balance. the limit order book then gets updated after dealers take the position from uninformed demander, which drive price aways.
+value traders may trader with uninformed demanders(when they issue limit order) or dealers, they supply liquidity directly or indirectly. when uninformed demander cannot move the price \
+significatlly, we say market resillience is strong.
+
+** outside spread
+outside spread is the prices value traders are willing to but or sell. they usually dont quote these prices, because they dont want to expose their estimation of values.
+value traders face adverse selection risk as dealers do, because they are not fully informed after all, they need to pay attention to news traders especially, widen outside spread and do \
+thorough research, they are therefore usually slow in taking oppotunities.
+winner's curse happens when a trader win an auction but paying too much or receiving too less. This happens because traders all make errors in their estimation, they need to account their\
+errors in their outside spread, especially when competition is high, they need to further widen the spread to make sure they bid/ask price is not over/under estimated compared to the competitors\
+. the goal is to profit, instead of winning an auction.
+** comprare to dealer spread
+dealer spread is much narrower because it is easy for dealers to correct their misktake by restoring balacnce before price move too much, because value traders must hold the position long \
+enough for the price to match the value so they have a larger inventory risk, because value traders spend a lot in research which is expensive, and because they trade in large volume.
+** value trader/news trader
+news trader take liquidity while value traders provide, so for value traders they need to be sure they know all information known by the public, and they need to make sure they are not trading\
+with news traders by understanding all informtion and why uninformed traders may trade. News trader need to be sure that the news they are trading on are not in the price yet, by observing \
+recent price history, how your news is coming to you.
+
+* arbitrageurs
