@@ -348,3 +348,76 @@ with news traders by understanding all informtion and why uninformed traders may
 recent price history, how your news is coming to you.
 
 * arbitrageurs
+arbi-urs trade on information about relative value of two or more instruments. srbi-urs should understand price and quantity charactics\
+of arbi trading, and be able to predict when and where arbi oppo will arise and react to them.
+** definitions
+the price difference between instruments in a hedge portfolio is basis, fair values of the basis is the diff when all instruments are \
+correctly priced. fair value depends on carrying cost. 
+arbitrage spread is the diff between basis and fair value. arbitrage bound is the basis where trader are willing to trade, on either direction.
+risks of a portfolio is basis risk or residual risk, because most risks with each intrument cancel each other, basis risk is usually low.
+** a simple characterization
+arbi trading can be considered as trading on portfolios, sell/short(sell long position in the portfolio/but short position), buy/long(buy long\
+position/sell short position). 
+high-frequency arbi-urs are essentially dealers on portfolios, they concern more about shorterm reversals than fair values. Traders who take large\
+arbi positions are value traders on portfolios, they are usually not as quick as h-f arbi-gurs. Same relation as dealer-value trader.
+** type of arbitrages
+*** Pure Arbitragues
+a mean reverting variable always "try" to return to its mean, the best estimation in a long run is always the mean. Pure arbi is on mean-revering\
+variable.
+shipping arbitrage, (virtually) shipping products between two market where prices are different. Virtual arbitrageurs unwind position when price \
+converge, therefore no need to ship(the price diff can be lower than shipping cost in this case); they need to ship it when their position is in \
+loss. Actual arbitrageurs drive shipping cost down. 
+delivery arbitrage involves contracts of future delivery of commodity.
+Convertion arbitrage, involves buy/sale of instruments with same risk in different forms. Oppotunities arise when traders in the market prefer one \
+risk form to others, the arbi spread widen, and arbi-guers then sell the favorite risk form and buy the unprefered ones. The arbi bound is determined\
+by cost of convertion and cost of carrying.
+Example of convertion arbitrage include stock option arbitrage, where an option may be prefered by the market, arbi-geurs then sell optioins and \
+construct a long position in the underlying stock. Pricing model can be very complex...a cyclic arbitrage in fx is also a convertion.
+** speculative arbitrage
+Involves instruments whose variables are non-stationary(random walk) in the long run, but mean-reverting in the short run. The non-stationriness come from \
+the instruments specific factors that cause the price to be random walking while the mean-reverting is caused by inconsistent pricing of the common factors in the \
+hedge portfolio or the mispricing of one or more specific factors.
+*** spread
+buy/sale instruments that are similar in all respect except for one factor. maturity spread, instruments only diff in maturity date, high correlated. Credit spread, \
+instruments diff only in the credit of the issuers. maturity spread are least risky speculative arbi, only the factors btw the two maturity will cause risks. In bond\
+market, it is called yield-curve spread.
+*** pairs trade
+pairs traders identify pairs that are mispriced from each other, due to an inconsistent pricing of a common factor or a mispriced specific factor, example, when value\
+traders bid up the price(due to a common factor change) while other instruments are not updated yet, or when uninformed traders change price for a specific instrument. 
+pairs trading are risky because the change could be permanent and not mean reverting, so they pay close attention to order book to find out whether change is done by \
+informed trader or uninformed trader. They don like markets who reflect informtion quick...so FX is not good for them!!
+
+*** statistical arbi
+they use factor models to generalize pairs trading to many instruments. Factor models are stats models represent the return of intruments by weighted sum of common \
+factors plus an instrument-specific factor. Arbitraguers need to estimate the weights. 
+Some factors are specified(interest, inflation...), some are generated from models. They use factor analysis/PCA/canonical correlations. They sometimes try to forecast\
+future factor values. 
+They quantify the size of the trade to control the hedge portfolios for low risk and high expected return, use numerical optimization to fine tune their decistions.
+
+*** risk arbi(mostly skipped)
+speculative arbi are known as risk arbi; but risk arbi also have a specific meaning of arbitrage on potential merge of firms.
+
+** arbitrage risks
+*** implementation risk
+Implementation risk is due to the execution cost of the transactions. Market order often lead to price that is unfavorable, while limit orders have the risk of failing\
+to execute, which is especially bad when one or some legs are completed already. In liquid market, market orders will be sensible, while in illiquide market, smart\
+order management is required.
+*** basis risk and arbitrage scale
+basis risk happens when basis widens instead of narrows, because an instrument specific factor force the divergence or a mistake in common factors. 
+traders can control basis risk by controlling their position size, the more risky basis, the less size their portforlio should be. They should never leverage to the max\
+extent that their capital permits.
+*** model risk
+model risk happens when trader mistakenly understand the basis and the relation between instrments. They need to accurately estimate the fair value, identify what caused\
+a basis change and is it really a arbi oppotunity? They should use all information they can find to estimate the fair value. 
+*** carrying cost risk
+happens when the carrying cost is higher than expected: longer holding period/interest rate increase/unexpected physical cost/unexpected security borrow cost.
+price increase may profit the long position, but if the loss in the short position get too high, a forced liquidation could happen, which is costly and unwanted. Never \
+leverage to more than your capital permits, staying power is vital!!
+slow convergence also increase cost, as traders need to hold it longer.
+unexpected buy-ins happens when the lend wants to sell an instrument in the hedge portfolio, and forces an early end of arbitrage, and could be very costly.
+** the cause of arbitrage oppotunities.
+slow price adjustment, some common factor change while not all instruments change at the same time to reflect the changes, arbi should identify this case and trade\
+quickly, using market order maybe.
+uninformed trader demand liquidity, some instrument change because uninfomed traders changed it, arbi are liquidity provider and can trade slow, with limit orders.
+** quantity charactorization of arbitrages
+
