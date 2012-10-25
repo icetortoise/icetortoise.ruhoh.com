@@ -420,4 +420,106 @@ slow price adjustment, some common factor change while not all instruments chang
 quickly, using market order maybe.
 uninformed trader demand liquidity, some instrument change because uninfomed traders changed it, arbi are liquidity provider and can trade slow, with limit orders.
 ** quantity charactorization of arbitrages
+arbitraguers enforce one price rule in multiple markets, they ship or repackage risk from one market to another.
+** arbitraguers/dealers/brokers
+liquidity is all about time and place, dealer solve the time issue by facilitating traders arriving at different time while arbitraguers solve the place issue.
+arbitraguers compete with dealers to provide liquidity, dealer generally dont want arbi in their market but could be beneficial when they want to rebalance. 
+dealer-arbitraguers are generally very profitable as they can choose serving liquidity as dealer or constrcut a hedge protfolio and act as arbi, which case they \
+are essentially informed traders.
+** competition among arbitraguers
+competition drives the arbi spread narrow, and in markets where relative value are easy to esimate, successful arbi are those who have quick access to the market,\
+while in the markets where relative value are hard to estimate, successful arbi are those who can more accurately estimate the fair value, and identify what caused\
+a change in price.
+natual arbi usually have lower cost as they construct their hedge portfolio while doing other natual business.
+
+* buy-side traders
+what order to submit, when to submit; with limit order, if it does not get filled, what's next? For large trade, whether to disclose the full size/and how?
+consider implement a statistical model on execution prod/execution price balance.
+** market vs limit order
+besides immediacy, bid/ask spread drives the decision, wide->limit/narrow->market. 
+the price a limit order should be placed depends on the balance between execution probability and exec price(a probability model may be used)?
+determine the prob(limit order gets filled): total limit order size at better price, price volatility and trader interest in the instrument, and expirience. 
+** order exposure decision
+exposure downside: order anticipant may respond to take advantage, and some liquid provider will avoid trading in the fear of price discrimination.
+upside: easy to arrange trade, and may attract reactive traders.
+** cost of order exposure
+may reveal the motive behind the trade, other traders can infer it even large trader trade anonymouly, then there hold liquidity/compete.
+may reveal future price impact, frontrunner can then take advantange.
+may provide valueable trading option, quote matcher can trade before them(on same direction), then the limit order becomes an option, if price move in favor\
+quote matcher profits, if un-favor move, then they can 'execute' the option.
+** defensive strategies
+evasive strategies, use electronic market that hides order, or order solicit system to survey interest, (build relation with broker/trader...)
+deceptive, send a small order in the opposite side first, lie about order size, bluff to go away, cancel orders to cause confusion.
+offensive, send an order in the wrong side, frontrunner may follow, then fill the order from frontrunner, leave them at the wrong side. Difficult to implement\
+too many variables can change.
+** market rules 
+time precedence order rule. large minimum price change can also prevent frontrunner...so there may be many frontrunner in FX?
+
+* liquidity
+liquidity is the objective of the bilateral search in a market, the many dimention of liquidity relate to each other through the mechanics of this bilateral\
+search. Trader need to measure liquidity to evaluate their strategies at a given liquidity level.
+
+** the search for liquidity
+unilateral search becomes more and more expensive as you progress, the prob of finding an even better price decrease quickly, cost usually remain.
+In bilateral search, you may search actively/passively, but there is a risk that you cannot return to your best match if you choose continue searching. 
+In bilateral, when consider stopping rule(expected benefit of keep on searching VS. expected cost) has to factor the prob that you cannot return to the \
+best match so far.
+** liquidity dimentions
+search can be considered as a funtion takes input(time or resource) and produce output(better price/enough size). 
+three dimentions: immediacy, how quickly for a given sized to get filled(time); width, the cost for trading a given size(price); depth, the size that can be \
+filled for a given price(size). 
+width and depth are acutually closely related, they are dual. Solving one means solving the other. Impatient traders focus on immediacy, small traders focus \
+on width! and large traders focus on depth.
+Can model liquidity as a joint-prod of trade, given size/price/immediacy...P(trade|size,price,immediacy).
+Some also factor resiliency in, it means how quickly the market restore when uninformed trader move the price.
+** who/how/why of liquidity
+dealers and value traders offer liquidity passively, they expect to profit when impatient traders take liquidity, they will not trade if noone wants the \
+liquidity. precommitted liquidity suppliers want to trade anyway(speculate,invest,hedge...), but they are patient to wait, they usually issue market order\
+if their limit orders are not filled.
+*** market maker
+MM are dealers who mainly solve immediacy issue, they usually trade in small size and avoid informed traders, they want to balance their portfolio quickly\
+after a trade. 
+*** block dealer(skipped, should be irrelevant)
+*** value traders
+value traders generally offer liquidity, to take advantage of a mispriced information, when other traders offer wrong price. They are the ultimate liquidity\
+suppliers, and they solve the depth issue. They also make market more resillient.
+The price value traders will trade are outside spread, they are wider than market maker spread in that they usually trade in large size, and hold longer period\
+therefore have larger position risk.
+*** precommitted liquidity suppliers
+they usually offer the most aggresive price, in the hope that trade will happen. Dealers are usually quicker than precommitted, they generally have advantage \
+because they can wait and react on new market order and adjust their position. 
+Precommitted solve immediacy, but usually not depth.
+*** arbitraguers
+arbitraguers take liquidity from one and move to another place(dealers are arbitraguers move liquidity on time). They allow traders in one market to access the\
+depth in another market.
+
+* volatility
+the tendency of price change unexpectedly, price change caused by new information or by uninformed traders(the distinction is not clear, unless fully informed, informed\
+trader can have different pricing).
+Option traders especially concern volatility because option value depends on volatility of underlying instrument; Technical traders pay attention to volatility as well \
+because they want to interpret volume, and volume is closely correlated with volatility.
+it is important to distinct fundemental volatility and transitory volatility, traders need to understand them to predict future volatility and evaluate strategies.
+
+** fundemental volatility
+when only a few people learn the new information, price change usually on high volume, as they try to take as much as possible and there is enough people on the other \
+side. And dealer infer the price change from order book, and factor it in their adverse selection component of the spread.
+Fundemental volatility is generally unpredictable, because expected information is already in the price, only unexpected information will change price.
+Storage cost plays an important rule in commodity market, especially those of high storage cost.
+Fundemental volatility subjects to many fundemental uncertainty...new research for tech firm(stock), high PE means high prob of future unexpected news(Stock), political\
+uncerntainty(FX/Bond/Stock).
+
+** transitory volatility
+Transitory volatility happens when uninformed traders push price away from fundemental price, and value traders/arbitraguers push them back. High transitory volatility \
+means high transaction cost, and indicates illiquid markets. Liquid market usually have small transitory volatility.
+** Measuring volatility and its components
+Total volatility can be meansured by variance/standard deviation, and mean-absolute-deviation(average absolute diff btw price change and average price change???)
+Theorical models measuring fundemental/transitory works to identify a random walk compoment and a revertion(because transitory change eventually return to fundemental\
+leaving a negative correlated sequence) from price movement series.
+Roll's Serial Covariance Spread Estimator Model shows how to estimate transitory volatility component from covariance of price series(p_t,p_{t+1}), assuming fundemental\
+volitility is completely random with zero mean change. Then the fundemental volitility variance can also be estimated. It only compares nearby prices, therefore genenrally\
+underestimate volatility.
+
+
+
+* Liquidity and transaction cost meansurement
 
