@@ -522,4 +522,76 @@ underestimate volatility.
 
 
 * Liquidity and transaction cost meansurement
+Traders should measure their transaction cost to know if their strategy does/will work, it is usually the most important factor deciding if your clever stragegy will
+turn out making money.
+There are explicit/implicit cost, and cost of missing oppotunities, the latter two are obviously harder to evaluate.
+
+** implicit cost estimation methods
+specified benchmark methods are commonly used, when traders specify a price(open/vwap/close/avg of open/avg of high-low-close/avg of bid-ask), and cost is calculated
+as the signed product of the different of the trade price and the benchmark, and the trade size.
+Econimetric transaction cost estimation methods can be considered as ways to estimate the benchmark price rather than specifying it.
+Lee and Ready algo is used to identify trade side(who initiated the trade).
+
+** measure with benchmark
+effective spread is calculated against the midpoint at the trade time, after trade(5,10,15,60min) midpoint is used for realized spread. 
+Midpoint can be open price/close price/VWAP/...
+Implementation shortfalls are the diff btw an imaginary value of a portfolio and the real value of the portfolio, where midpoint for each instrument is specified. When\
+the trade occurs, it is the (trade price - midpoint)*size, when it does not(fully) occur, it is the (current price - midpoint)*size -- cost of missing oppotunities.
+** properties of benchmark based estimators
+Noises, some other factor will affect the price, other than your trade..therefore effective spread is most un-noisy...given it's short time span.
+Large order split, effective spread or VWAP which tends to ignore the price impact of the trade itself are poor estimators, impl shortfalls are better because it uses \
+midpoint determined before any trade is done.
+Momentum/contrarian traders have biased estimater when using midpoints determined before their trade...their trading strategy makes sure they alwasy buy/sell when the \
+current price is lower/higher.
+Informed trader tend to underestimate the cost because the price will usually follow their trade, when using midpoint that is determined afer their trade.
+Best estimator is impl shortfalls, if data/impl is not a problem, VWAP is used by institutional traders despite it is biased in some cases. Retailers use effective \
+spread most often. 
+** econometric methods
+Using statistical method to estimate midpoint, based on order flow. Non order flow is not accurate and useful. See Glosten-Harris for an example: a regression of a model\
+that comprises three component: fundemental value change informed from order, transaction cost spread, and an error term.
+** missed trade oppotunity cost
+Ideally should measure against same benchmark price, with a specified interval(s). Marginal cost is the difference between the trade cost and the missed oppotunity cost, \
+traders should trade more or less aggressively according to the marginal cost of their strategy.
+** transaction cost prediction
+Traders need prediction to evaluate trading strategies, they use explicit information: market data/limit order book, this usually overestimate the cost; they also need to \
+use implicit information: using ecomometric regression model to fit past transaction cost against observable variables like order size/price placement/money flow/price move.
+General variable that indicates whole market cost are usually volume and volatility.
+** final comments
+portfolio selection and trade implementation(transaction cost analysis) are closely related, a strategy should be able to tell how aggressively traders should trade. 
+
+* Performance evaluation and prediction
+** the performance evaluation problem
+No one can anticipate all factors, unexpected factor change cause random changes of price, therefore separating luck and skill is an important when evaluating\
+performance. Some good performance is purely lucky with no skill and some bad is still well managed but just a bad luck.
+** Performance evaluation methods
+When no transfer in/out of portfolio, it is easy, just calculate all case flows. When there is transfers, IRR(internal rate of return) is used: it is the \
+compound interest of a savings account to exactly replicate the performance of the portfolio, a time-weighted geo average.
+Total return comprises of current yield, which is cash flow with holding the assets(interest/dividend), and capital gain, which is the rest of the return.
+*** relative performance measurement
+To separate skill and luck, a benchmark return is usually set to compare portfolio return with; benchmark usually measures the return when assets are not activly managed.
+Market adjusted returns are total returns minus a common market index(SP500, MSCI), FX seems to be lacking a good index...or maybe the USG coupon?
+Risk adjusted returns are total returns times avg betas of portfolio, while beta measures the extent the security fluctate with market(beta=0.5 means security rise/fall
+0.5 percent when the market rise/fall 1 percent.). 
+Managers can change market betas by swapping securities with diff betas. (beta*market return - market return) then measures the managers ability to select securities. 
+RawReturn=(RawReturn - Beta*MaketReturn)+(Beta*MarketReturn-MarketReturn)+MarketReturn = ExcessReturn+MarketTimingReturn+MarketReturn
+** the Performance prediction problem
+Evaluate past performance to predict future only works when factors determining the performance in the past also work in the future!! And a program trader with long \
+historical data testing seems to satisfy the conditions, unless market itself changed.
+** statistical performance evaluation
+the student T-test, how can this be used to evaluate and predict the performance of a strategy? In other words, how do you evaluate the market adjusted return of your \
+stragegy? A high frequency program need much less data to evaluate.
+T-test shows with less than ten years data, investors are better off to choose an index fund most of the time.
+Problem with statistical methods are manager skills generally contribute less than luck, in essential, it is a low signal-to-noise ratio problem. Only long historical \
+return data can increase the chance of finding good managers, increase observation frequency cannot improve the situation a lot. 
+But above analysis is base on equity, HF trading is different, if every HF trade generate some return, best time to calculate return is when it is realized, given the \
+shot time span, evaluations of HF strategy can be more reliable.
+** more important problems about statistical evalution
+The return distribution is assumed to be normal in the T-test, in reality however, it rarely is normal. It is more flat(extreme cases happen more than expected).
+Most of the time the distrbution is symmetric, it can be asymmetric with some particular trading strategies however. The peso problem happens when a portfolio gains small\
+return most of the time and lose a lot once in a long while. Statistical methods to eveluate such a portfolio will be very unreliable.
+** econometric approaches to performance prediction
+Better traders in the market generally win in a long run, the comparative advantage they have will make sure that happens.
+Traders should focus on 1)why their strategy will profit; 2)why other traders will lose to them. They are related and equally important. A good manager should be able to\
+tell his comparative advantage, and not confusing it with absolute advantage.
+In markets, a zero-sum game, you do not win because you are good, you win because you are better.
 
