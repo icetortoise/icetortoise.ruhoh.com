@@ -1,599 +1,1001 @@
-
-
 * orders
+
 bid/ask, bid/offer, bid/offer spread
+
 limit order(fixed price in one direction)
+
 standing order/open order, orders that offer liquidity
+
 inferior price?
+
 broker > proprietary, mostly 
+
 ** market order
+
 market order trade at current best, they pay (half, assuming spread does not change) bid/offer spread.
 
 another way: true value lies in the spread, assuming midpoint given no other infor.
 
 has execution risk when market move before execution.
+
 ** limit order
+
 marketable limit order is better then current market bid/offer
+
 marketable -> in the market(in spread, make a new market) -> at the market -> behind the market.
-standing limits are options, in that they provide other trades options to buy/sell at a striking price. \
-they are not option contracts in that they are owned, and people freely execute it by issuing orders.
+
+standing limits are options, in that they provide other trades options to buy/sell at a striking price. they are not option contracts in that they are owned, and people freely execute it by issuing orders.
+
 limit order value determined by limit price(obvious), available period(longer, higher), volatility(higher, higher)
+
 benefit: possible better price
+
 risk: execution risk, may not get traded. ex post regret, price move against after trade executed, imagine dealer trade with a well-informed trader.
+
 ** stop order
+
 order with stop instructions, typically market order, also called stop loss order.
+
 stop price is usually not the executed price
+
 stop order trade at worse conditions than stop prices, while limt order trade at better prices than limit price
+
 a stop limit order therefore specifies a price range where the trade must satifies.
+
 stop order accelerate price changes as it always demands liquidity when it is less available, also call adding monmentum.
+
 monmentum stratgies buy when price rise and sell when it falls, contrarian trader do the opposite, they tend to stablize the price changes
+
 ** market-if-touched MIT
+
 MIT activates when price reaches touch price. Isnt it just stop order when sell/buy swapped?
+
 MIT is like limit order in that it is used when buy at price falls and sells at price rises. 
+
 Difference is MIT becomes market order after execution, used when trader wants to make sure trades happen.
+
 ** tick sensitive order
+
 uptick, downtick, zero downtick, zero uptick
+
 buy downtick order fills only at a downtick or zero tick, the price must be lower then the previous. sell uptick order is the inverse.
+
 tick sensitive orders wont "buy up" or "sell down", no impact, but only fills when someone is willing to sell low or buy high. provide liquidity
+
 essentially a limit order with limit price dynamically changing based on the market price(last tick).
+
 useful with large ticks, less useful now days
+
 ** market not held order
+
 trader tells broker to trade in their own decision.
+
 large orders sometimes sent to exchange floor traders or trader with electronic trading desk, so they might be better executed.
+
 ** validility and expiration
+
 immediate-or-cancel, good-on-sight,fill-or-kill
+
 day order
+
 good-until-cancel
+
 ** size
+
 all-or-nothing
+
 minimum-or-nothing
+
 ** others
+
 spread orders involve buy one and sell another, limit price is the spread between the two
+
 display orders, iceburg orders, undisclosed orders
+
 substitution order give broker the right to trade any instrument in a pool.
+
+
+
 
 
 * structure
 
+
+
 ** trading session
+
 continous, major type, dont have to wait.
+
 market call, trade only when instruments are called. better liquidity
+
 many market call exchange change to continous with open call
+
 market sonar, use order to fine infor about market. 
+
 price cluster, some trader trade at 0.05/0.1/0.5..., there are stategies use that
 
+
+
 ** execution system - how orders are matched
+
 quote driven / dealer market, dealers provide (most) liquidity, and pub traders have to trade with dealers in a pure quote driven market.
+
 quote driven is very common(most bond/fx? this may be dated), most of them are not pure.
+
 order driven, market has rule based order match system. Some markdet still dealer providing most liquidity, but they cannot choose client.
+
 order driven are very common in future/option/stock exchanges, and ECNs and brokerages for bond fx etc.
 
+
+
 ** market information(data?) system
+
 order book contains mostly standing limit order, some also stop order and MIT order.
+
 open book/close book market. 
+
 some open book allow undisclosed limit order to protect limit orders
+
+
 
 * order driven markets
 
+
+
 ** oral auctions
+
 order precedence rules, price, time/public order
+
 time precedence works better in big smallest-price-change(tick) market
+
 public order precendence is weakened with smaller ticks, because it is cheaper for exchanges memebers to out bid/offer a public offer.
 
+
+
 ** rule based order matching
+
 most accept only limit order, with max quantity.
+
 price is always the primary while secondary could be time(floor/strict), display order(disclosed > undisclosed) and size(could be either).
+
 floor: the first arrived price takes precedence, others are equal and have to be ranked by other rules. Strict is as the name tells.
+
 in continious market, match happens whenever new order arrives, but no trade will neccessarily happen after a match.
 
+
+
 ** uniform pricing and single price auction
+
 single price auction used by many at the beignning auction.
+
 market will match orders until there is no possible matches, the last match resolving a trade delivers market clearing price. 
+
 all matchs that already happen can proceed, because they had agreed with a "worse" price, they are willing to trade at new clearing price.
+
 it maximize the total trader surplus(buy's gain+seller's gain), because they all trade at clearing price.
 
+
+
 ** discriminatory pricing and continuous two-sided auction
+
 trade happen with a marketable order(can match with the other side) arrives, trades could be in different prices depending on the order size.
+
 trade at prices of standing limit order instead of the new order(they might be the same)
+
 large impatient traders prefer because they trade at prices bwteen current best to the worse they can get should it be a uniform pricing market.
+
 standing limit order traders is the opposite because they can only trade at what they bid/offer, no chance of improving to a clearing price.
+
 the above is overstated however, because trader would put limit order much more carefully(less probable to trade) in discriminatory than in uniform.
+
 discriminatory market has lower total trader surplus, but it provides the ability to trade at any time. 
+
 And if dealers has facilitated the trades, and their  profit are counted(they resell/rebuy) the total suplus is same as uniform.
-single price auction has lower volume(because it is less frendly to large orders). On the other hand, markets can maximize volume by \
-narrowing the bid/offer spread(by having dealers, for example), but this decreases trader surplus.
+
+single price auction has lower volume(because it is less frendly to large orders). On the other hand, markets can maximize volume by narrowing the bid/offer spread(by having dealers, for example), but this decreases trader surplus.
+
+
 
 ** derivative pricing and crossing networks
+
 price is determined by other markets, crossing networks only finds if trade can happen at current crossing price.
+
 it is highly confidential, and many orders cannot be filled but people are willing to try because it has no price impact.
+
+
 
 * brokers
 
+
+
 ** what brokers do
+
 biggest value is clearing and settlement(make sure agreed trades will settle), by represent trustworthy clients, liquidate client assets, etc.
+
 many exchanges only allow members to trade.
+
 introducing broker is not member, they introduce their client to other brokers.
+
 client->broker ECN->automatic order match, clients become traders
+
 front, back office, proprietary operations(cash management, stock lending, principle trading)
 
+
+
 ** broker profit
+
 commision, usually vary according to service level
+
 interest from client deposit
+
 cash clients put in for a short trade can generate interest. For example, the margin user paid in a future contract.
+
 most retail broker refuse to rebate the interest(share interest earning with clients), though doing so might generate more order flow(short sell in particular)
 
+
+
 ** problems
-principle agent problem(broker performance), dual trading problem(conflict of interest between client order and dealer order), \
-order preference problem(small orders are not well negotiated.)
+
+principle agent problem(broker performance), dual trading problem(conflict of interest between client order and dealer order), order preference problem(small orders are not well negotiated.)
+
+
 
 ** dishornest broker
+
 front running, allow some trade go first to take advantages of (usually large impact) client order that is placed later.
 
+
+
 * why people trade?
+
 for profit traders must trade with people who will lose, must understand why they trade and when they trade.
+
 must for well-reasoned opinion of market structure by understanding why ppl trade, diff type traders have diff opinions.
-profit-motivated - speculators(profit directly from trades), utilitarian - investor, borrower, hedger..(profit from other than trade itself), \
+
+profit-motivated - speculators(profit directly from trades), utilitarian - investor, borrower, hedger..(profit from other than trade itself), 
 furtile - believe they are profit-motivated, irrational
+
+
 
 ** utilitarian traders
 
+
+
 *** investor and asset exchanger
+
 investor and borrower, they move move from one point to another(present/future or past/present), solving intertemporal cash flow timing issue
+
 expect return = real risk-free instrest + risk premium, risk premium is low to investors, speculators expect high risk premium.
+
 asset exchanger, trade for asset that is of greater (immediate) use for them, commodity and FX are largest of the kind, such market is called cash/spot market.
 
+
+
 *** hedger
+
 hedgers, buy(sell) intruments that are correlated(inversely correlated) with the risks they are exposed to. hedged(coverd)/unhedged(naked)
+
 future contract price is almost always proposional to underlying cash price, linear hedge.
+
 stock hedge using index future. speculators should only expose to risk they understand best and hedge other risks.
+
 stock option is nonlinear to underlying price, as put option(sell) has lowest zero price, and highest underlying cash price? while the underlying cash price has no up limit.
+
 put-call parity theorem: long cash + long put = long call. The left is better when there is already a cash position, the right is better for a new position.
+
 hedge by option/future: option leaves upside potential, give up a premium(higer purchase price???), while future gives up upside potential while dont have to pau premium.
 
+
+
 *** gambler
+
 trade with no rational to expect return. for entertainment..
+
 many traders dont realize they are gambling when they are, they tend to trade more often and trade high volatile intruments.
+
 gamblers are uninformed, speculators are, many speculators believe the info they have give advantage while it does not.
 
+
+
 *** fledging - trade to learn
+
 approx only 5% fledging become successful, many believe they got the skills why it is only good luck.
+
 many still fledging after being a successful professional trader
+
+
 
 *** sub-subsidizers/tax-avoider
 
+
+
 *** summary: utilitarian traders trade to solve problems outside of market, they take risk they can tolerate(unless a gambler)
+
+
 
 ** profit-motivated traders
 
+
+
 *** speculators
+
 speculators trade by predicting future prices. Informed traders trade on infor on fundemental values, parasitic traders profit from trades other traders do.
+
 informed traders: value trader, news/information, (statistical/pure)arbitrageurs -> they are the only traders drive prices to fundemental values.
+
 parasitic traders: order anticipators(front runner/sentiment-oriented/squeezer) use information other than fundemental value
+
 bluffer...false information or price manipulator
-technical traders, including information-oriented(analysis technical data to predict values, and expect prices moving), sentiment-oriented(analysis tech data to \
-predict what uninformed traders will do and anticipate their trade.)
+
+technical traders, including information-oriented(analysis technical data to predict values, and expect prices moving), sentiment-oriented(analysis tech data to predict what uninformed traders will do and anticipate their trade.)
+
+
 
 ** profit-motivated traders must understand why utilitarian/futile traders trade in order to make profit!
 
+
+
 * good markets - skipped
+
 * informed speculator and market efficiency
 
+
+
 ** informed traders
+
 efficient market price reflect fundemental values, fundemental values depends all information of an intrument, and changes to fundemental values are unpredictable.
+
 informed traders estimate fundemental values from public or private values, their trades tend to push market prices to fundemental values.
+
 the average price from informed traders are usually more informative than one single trader.
+
 the price movement they push is their transaction cost, therefore they like high liquidity.
+
 when the information will soon be obtained by common/other informed traders, they trade agressively, otherwise they trade slowly to minimize price movement(stealth trading).
+
 well informed traders have large weights on the contribution(larger position) to the market price, because they survived!
 
+
+
 ** style of informed traders
+
 value traders, estimate fundemental values, throughout research and slow decision to minimize mistakes.
+
 value traders obtain *any* informations that might help them estimate fundemental values.
+
 news trader estimate price movements upon new information(including inside trading), they need to quick. information that is in the price already is stale information.
+
 news trader usually can estimate the direction, but not the size(that'd require them to be value trader), and then lose oppotunity to make more.
-information-oriented technical traders identify price(maybe other) patterns during an information-oriented movement, usually caused by uninformed traders or mistakes made by\
-informed trader(push price too high(higher than fundemental)). see also Tax Timing strategy.
+
+information-oriented technical traders identify price(maybe other) patterns during an information-oriented movement, usually caused by uninformed traders or mistakes made byinformed trader(push price too high(higher than fundemental)). see also Tax Timing strategy.
+
 pattern from mistaken informed traders make technical traders informed trader themselves, and they therefore correct the market price.
+
 pattern from unformed traders make technical traders dealer(provide liquidity to them) or sentiment order anticipant(frontrun the orders).
-technical trading on mistakes because informed trader eventually get better, and make less mistakes. And human eye often see patterns when there is not. It is also hard \
-in a efficient market, because price there only correspond to underlining values, which is unpredictable. But there is no efficient market!!
+
+technical trading on mistakes because informed trader eventually get better, and make less mistakes. And human eye often see patterns when there is not. It is also hard in a efficient market, because price there only correspond to underlining values, which is unpredictable. But there is no efficient market!!
+
+
 
 ** competition, trading profit and informative price
+
 price became informative when informed traders trade(with uninformed), and their profit depends on how well informed are they and the liquidity of the market(small price movement).
+
 best trader need precise and orthogonal estimation, orthogonal means the way they do estimate is different than others, and they are right when other are not willing/or wrong.
+
 less oppotunity for informed trader in markets with informative price, but liquidity usually offet, it's a balance.
-informed trader make money when price is uninformative(because value always change, and price move behind, or because uninformed trader move price), scenario: news trader pick up\
-news first and move price, value trader correct their under/over-estimation, technical traders recognize their systematic mistakes. 
+
+informed trader make money when price is uninformative(because value always change, and price move behind, or because uninformed trader move price), scenario: news trader pick upnews first and move price, value trader correct their under/over-estimation, technical traders recognize their systematic mistakes. 
+
 Technical trader can also profit when they recognize uninformed trader move the price.
+
 Information publication can protect uninformed and still make price informative, people have diff speed/way of using that information though, creating microstructure.
+
 Is there analysis on the trade type percentage of FX?
 
+
+
 * Order anticipators
+
 order-anticipators(OA) trade before other traders trade, they profit when they correctly anticipant how other traders will trade.
 
+
+
 ** front runners
+
 Agressive front runners generally takes liquidity/profit from large traders(usually trade with market order), by trading before then and sell/buy it to/from large traders at a worse price.
-Passive front runners(quote matchers) front run limit orders on the same side, the limit orders then effectively become options that hedge their risk, unless those orders are cancelled\
-or got adjusted.So front runners must be fast, usually colo.
-front runners drive informed trader out in the long way, force trader trade more aggressively or demanding liquidity other than providing it. they make price less informative and result in\
-less liquidity in the market.
+
+Passive front runners(quote matchers) front run limit orders on the same side, the limit orders then effectively become options that hedge their risk, unless those orders are cancelledor got adjusted.So front runners must be fast, usually colo.
+
+front runners drive informed trader out in the long way, force trader trade more aggressively or demanding liquidity other than providing it. they make price less informative and result inless liquidity in the market.
+
+
 
 ** sentiment-oriented technical traders(refered as SOT)
+
 SOT predict how uninformed traders will decide to trade before their submittion or intension to submit. Sources are usually uninformed traders or mistakes from speculators.
-Predictive Information: cash flow(bonus, dividends, etc) for investors/borrowers; production, inventories for hedgers; sales, international fund flow for asset exchanges\
+
+Predictive Information: cash flow(bonus, dividends, etc) for investors/borrowers; production, inventories for hedgers; sales, international fund flow for asset exchanges
 exciting point(volatile instruments/news) for gamblers, past trades/price/volume for mistakes from speculators.
+
 IPO in Asia some times cause local currency appreciate, because many ppl subscribe, in some cases in hundreds of times to the offering.
-SOT front run uninformed, who tends to drive price away from value, they therefore have the risk of value traders correcting the price. They profit best in markets/instruments that are\
-hard to value, usually involve expected inflation/political uncertainty, example: stock/bonds/metal.
+
+SOT front run uninformed, who tends to drive price away from value, they therefore have the risk of value traders correcting the price. They profit best in markets/instruments that arehard to value, usually involve expected inflation/political uncertainty, example: stock/bonds/metal.
+
 Seems FX is hard for SOT, because informed traders are stronger, and values are better estimated than other markets, price usually fluctuate around the value with a relatively low variation.
+
+
 
 ** bluffers and market manipulation (FMI only)
 
+
+
 * dealers
+
 dealers tend to lose to informed traders...how do dealer determine value? how do they respond to informed traders? Must consider how dealer trade when you decide to take/supply liquidity.
 
+
+
 ** who are dealers
+
 dealer|market makers are spread traders who supply liquidities. ppl issue limit orders often become dealer without realizing it. 
+
 dealers often speculate, quote matching, and when they do they become position traders instead spread traders. dealers bear high risk.
 
+
+
 ** dealer quotations
+
 dealers usually make two-side market, and they usually give better price one the side they prefer to trade. 
-Inside spread is the spread bwteen the highest bid and lowest offer. There is firm quotes and soft quotes(merely a interest to trade, even quote on request)...find out about fx, some seems\
-to be soft quoting.
+
+Inside spread is the spread bwteen the highest bid and lowest offer. There is firm quotes and soft quotes(merely a interest to trade, even quote on request)...find out about fx, some seemsto be soft quoting.
+
+
 
 ** dealer inventory
-inventory is the long/short position of a dealer, and every deal has a target that is the position they prefer to be. If dealer dont invest/speculate/hedge, their target/balance inventory should\
-be zero; otherwise, their target should be a position reflect their invest/speculate/hedge decisions.
+
+inventory is the long/short position of a dealer, and every deal has a target that is the position they prefer to be. If dealer dont invest/speculate/hedge, their target/balance inventory shouldbe zero; otherwise, their target should be a position reflect their invest/speculate/hedge decisions.
+
 dealers need to bid high and offer high when they want to increase inventory, and vice versa. they may also buy/sell correlated instrument when the balance is low/high.
 
+
+
 ** inventory risk
-diversifiable inventory risk is caused by unpredictable price movement, unrelated the inventory balance. they move in either direction with equeal probability. this can be diversified by dealing\
+
+diversifiable inventory risk is caused by unpredictable price movement, unrelated the inventory balance. they move in either direction with equeal probability. this can be diversified by dealing
 many instruments at the same time.
-adverse selection risk comes when informed trader cause inventory inbalance. when inform traders buy from/sellto dealers, dealer position drop/increase and price rise/drop, dealers need to \
-avoid trading with informed traders by setting quotes near fundamental value.
+
+adverse selection risk comes when informed trader cause inventory inbalance. when inform traders buy from/sellto dealers, dealer position drop/increase and price rise/drop, dealers need to avoid trading with informed traders by setting quotes near fundamental value.
+
 dealers usually care less about fundamental value, but focus on discovering market values.
 
+
+
 ** response to adverse selection risk
+
 when (suspecting) buy from informed trader, dealer quote lower bid/ask, lower bid to prevent buying more and lower ask to recover position soon.
-dealer need quote bid/ask to "inclose" fundemental value so that informed trader will not trade with them, they do so by watch orders from informed trader, focus on market data(example: informed\
-traders are buying means dealers need to quote higher). 
-dealer generally dont know who are informed trader, they need to watch all orders and assume each of them has a probability to be informed. (probablity may come from empirical rules or historical\
+
+dealer need quote bid/ask to "inclose" fundemental value so that informed trader will not trade with them, they do so by watch orders from informed trader, focus on market data(example: informedtraders are buying means dealers need to quote higher). 
+
+dealer generally dont know who are informed trader, they need to watch all orders and assume each of them has a probability to be informed. (probablity may come from empirical rules or historical
 data analysis).
-dealer also quote based on their estimation of next order from informed traders, so the bid/ask spread tends to be large if dealers believe next informed traders have good information, this makes\
-large order even harder to execute(large orders have a higher prob from a informed trader).
+
+dealer also quote based on their estimation of next order from informed traders, so the bid/ask spread tends to be large if dealers believe next informed traders have good information, this makeslarge order even harder to execute(large orders have a higher prob from a informed trader).
+
+
 
 ** pricing mistakes
-quote adjustments are not enough, more trades from informed trader will come, more losses; or adjustments are too much(maybe the other side is not informed), this will push quote too much away \
-from fundamental, attracting informed traders.
+
+quote adjustments are not enough, more trades from informed trader will come, more losses; or adjustments are too much(maybe the other side is not informed), this will push quote too much away from fundamental, attracting informed traders.
+
+
 
 ** others
-not-well informed dealers tend to restore their balance ASAP(day trading), their realized spread is small. well informed deals are more patient, and have large positions, holding longer, and higher\
-realized spread.
-(possibly wrong), large FX trading volumes are because most are dealer trading, they trade to discover prices, and they then restore their targe balance afterwards, FX instruments are highly \
-standardized and settlements are cheap. Once a good way to match natual buyer/sellers, FX volume will drop.(reality seems different, some other factors are playing here??)
+
+not-well informed dealers tend to restore their balance ASAP(day trading), their realized spread is small. well informed deals are more patient, and have large positions, holding longer, and higherrealized spread.
+
+(possibly wrong), large FX trading volumes are because most are dealer trading, they trade to discover prices, and they then restore their targe balance afterwards, FX instruments are highly standardized and settlements are cheap. Once a good way to match natual buyer/sellers, FX volume will drop.(reality seems different, some other factors are playing here??)
+
 dealer layoff: how uninformed dealers trade with large uninformed traders can still make money for dealers.
 
+
+
 * bid/ask spreads
+
 bid/ask spread is the price people paid for immediacy; the most important factor traders decide limit order or market order, and dealer decide to offer liquidity.
+
 ** spread components
+
 *** transaction cost spread component
-the part of spread that compensate dealers for their normal cost of doing business. when all traders know the fundamental value for certain, the \
-spread consists this component only, and what decides the spread wideness is simply dealer competition, which will drive it to the normal cost of doing business.
+
+the part of spread that compensate dealers for their normal cost of doing business. when all traders know the fundamental value for certain, the spread consists this component only, and what decides the spread wideness is simply dealer competition, which will drive it to the normal cost of doing business.
+
 tp will only bounce between ask/bid, it does not indicate fundamental value change if there is only cost component. 
+
 *** adverse selection spread component
+
 this component further widening the spread to make dealers able to recoup their losses to informed traders from uninformed, also decrease losses to informed, by make the price less attractive.
+
 also called permanent component as tp change due to this component indicates fundamental price change(at least dealers estimation of the fundamental price).
-information perspective: the component is the adjustment to the estimate dealers make to the fundamental price, condition on next informed trader is buyer or seller; buyer -> increase the \
-estimate|seller->decrease. component = price error(the adjustment) * prob(trader is informed)
+
+information perspective: the component is the adjustment to the estimate dealers make to the fundamental price, condition on next informed trader is buyer or seller; buyer -> increase the estimate|seller->decrease. component = price error(the adjustment) * prob(trader is informed)
+
 accounting perspective: the loss to informed traders per trade: component = loss(dealer's estimate to informed traders value) * (#informed trades/#total trades), same as above.
+
 Figure 14.1/14.2 for a illustration of how dealers decide the spread...naively.
+
 *** uninformed traders lose
+
 issue limit order on the wrong side, informed traders will trade and price move against.
+
 issue limit order on the right side, compete with dealers and usually order cannot be filled.
+
 issue market order, dealer account adverse selection spread, and uninformed traders need to pay it.
+
 so unless you have an edge large enough to become informed, you will lose however you trade, a 50/50 trading strategy will still lose.
 
+
+
 ** equilibrium spreads in continuous order-driven auction markets
-equilibrium achieves when there is no difference between issuing an limit order or a market order in terms of the cost. In a simplest assumed market, spread wide -> more limit order -> \
-spread becomes narrower until limit/market order has no difference. vice versa. 
-in reality, equilibrium depends on many factors: degree of information asymmetry(positive correlation, significan impact), time to cancel limit order(pos,large), volatility(pos,large), \
-limit order management(pos, moderate), value of trader time(pos, moderate), diff between limit/market order commission(depends, depends), degree of risk aversion(pos, low)
+
+equilibrium achieves when there is no difference between issuing an limit order or a market order in terms of the cost. In a simplest assumed market, spread wide -> more limit order -> spread becomes narrower until limit/market order has no difference. vice versa. 
+
+in reality, equilibrium depends on many factors: degree of information asymmetry(positive correlation, significan impact), time to cancel limit order(pos,large), volatility(pos,large), limit order management(pos, moderate), value of trader time(pos, moderate), diff between limit/market order commission(depends, depends), degree of risk aversion(pos, low)
+
+
 
 ** dealers vs public limit order
+
 public limit order has lower cost of running business while dealers get to see more of the trader book and therefore can speculate(quote match/order anticipate) to profit.
 
+
+
 ** cross-sectional spread predictions
-asymmetric information(not directly observable, need to estimate from secondary factors), volatility(observable, correlated with asymmtric), utility trader interest(strong interest ->\
+
+asymmetric information(not directly observable, need to estimate from secondary factors), volatility(observable, correlated with asymmtric), utility trader interest(strong interest ->
 active market -> less volatility|easy to recover position|narrow spread).
-proxies to asymmetric information: various ways to get informtion; diversity(index or stock of a large firm with diversified business, importance of information decreased); fundamental \
-economic value product(usually ppl know about the same information), and other market regulations/participants factors...
+
+proxies to asymmetric information: various ways to get informtion; diversity(index or stock of a large firm with diversified business, importance of information decreased); fundamental economic value product(usually ppl know about the same information), and other market regulations/participants factors...
+
 proxies to utilitarian trading interest: trading activity/volume, firm size(stock), one the run -> seasoned(bonds)
 
+
+
 ** GM model derivation
+
 adverse selection spread should be 2*P*E, where P=prob(next trader is informed) E=effect on the price given next trader is informed.
 
+
+
 * block traders
+
 many consider block trade as trades with size large than a quarter of avg daily volume of an intrument.
 
+
+
 ** problems
-latent demand(people who want to fill block might not issue order actively), order exposure(traders on both side of the exposed block will take action, either accelarate or delay their \
-trades), price discrimination(traders dont like fill block firstly, price will move against them, they want to know the true size of the block), information asymmetric(people believe\
+
+latent demand(people who want to fill block might not issue order actively), order exposure(traders on both side of the exposed block will take action, either accelarate or delay their trades), price discrimination(traders dont like fill block firstly, price will move against them, they want to know the true size of the block), information asymmetric(people believe
 block traders are well informed, especially anonymous block initiators).
 
+
+
 ** a telling statistics
+
 block trade price can tell if it is initiated by seller or buyer, tp close to bid, initiated by seller, close to ask, initiated by buyer.(block trade happens out of public market)
 
+
+
 * value traders
+
 value traders are  speculator who form opinions about the value of the instruments and trade when the price is away from the value.
 
+
+
 ** supply liquidity
-they are liquidity supplier because price deviating from value can only happen when 1. new informtion 2. uninformed liquidity demanders, and value traders trade in response to uninformed\
-liquidity demanders.
-uninformed liquidity demander can drive price away from value because dealers could mistakenly asses they are informed, or even when dealers know they are uninformed, they are under pressure\
-to restore their target balance. the limit order book then gets updated after dealers take the position from uninformed demander, which drive price aways.
-value traders may trader with uninformed demanders(when they issue limit order) or dealers, they supply liquidity directly or indirectly. when uninformed demander cannot move the price \
+
+they are liquidity supplier because price deviating from value can only happen when 1. new informtion 2. uninformed liquidity demanders, and value traders trade in response to uninformedliquidity demanders.
+
+uninformed liquidity demander can drive price away from value because dealers could mistakenly asses they are informed, or even when dealers know they are uninformed, they are under pressureto restore their target balance. the limit order book then gets updated after dealers take the position from uninformed demander, which drive price aways.
+
+value traders may trader with uninformed demanders(when they issue limit order) or dealers, they supply liquidity directly or indirectly. when uninformed demander cannot move the price 
 significatlly, we say market resillience is strong.
 
+
+
 ** outside spread
+
 outside spread is the prices value traders are willing to but or sell. they usually dont quote these prices, because they dont want to expose their estimation of values.
-value traders face adverse selection risk as dealers do, because they are not fully informed after all, they need to pay attention to news traders especially, widen outside spread and do \
-thorough research, they are therefore usually slow in taking oppotunities.
-winner's curse happens when a trader win an auction but paying too much or receiving too less. This happens because traders all make errors in their estimation, they need to account their\
-errors in their outside spread, especially when competition is high, they need to further widen the spread to make sure they bid/ask price is not over/under estimated compared to the competitors\
-. the goal is to profit, instead of winning an auction.
+
+value traders face adverse selection risk as dealers do, because they are not fully informed after all, they need to pay attention to news traders especially, widen outside spread and do thorough research, they are therefore usually slow in taking oppotunities.
+
+winner's curse happens when a trader win an auction but paying too much or receiving too less. This happens because traders all make errors in their estimation, they need to account theirerrors in their outside spread, especially when competition is high, they need to further widen the spread to make sure they bid/ask price is not over/under estimated compared to the competitors. the goal is to profit, instead of winning an auction.
+
 ** comprare to dealer spread
-dealer spread is much narrower because it is easy for dealers to correct their misktake by restoring balacnce before price move too much, because value traders must hold the position long \
+
+dealer spread is much narrower because it is easy for dealers to correct their misktake by restoring balacnce before price move too much, because value traders must hold the position long 
 enough for the price to match the value so they have a larger inventory risk, because value traders spend a lot in research which is expensive, and because they trade in large volume.
+
 ** value trader/news trader
-news trader take liquidity while value traders provide, so for value traders they need to be sure they know all information known by the public, and they need to make sure they are not trading\
-with news traders by understanding all informtion and why uninformed traders may trade. News trader need to be sure that the news they are trading on are not in the price yet, by observing \
-recent price history, how your news is coming to you.
+
+news trader take liquidity while value traders provide, so for value traders they need to be sure they know all information known by the public, and they need to make sure they are not tradingwith news traders by understanding all informtion and why uninformed traders may trade. News trader need to be sure that the news they are trading on are not in the price yet, by observing recent price history, how your news is coming to you.
+
+
 
 * arbitrageurs
-arbi-urs trade on information about relative value of two or more instruments. srbi-urs should understand price and quantity charactics\
-of arbi trading, and be able to predict when and where arbi oppo will arise and react to them.
+
+arbi-urs trade on information about relative value of two or more instruments. srbi-urs should understand price and quantity characticsof arbi trading, and be able to predict when and where arbi oppo will arise and react to them.
+
 ** definitions
-the price difference between instruments in a hedge portfolio is basis, fair values of the basis is the diff when all instruments are \
+
+the price difference between instruments in a hedge portfolio is basis, fair values of the basis is the diff when all instruments are 
 correctly priced. fair value depends on carrying cost. 
+
 arbitrage spread is the diff between basis and fair value. arbitrage bound is the basis where trader are willing to trade, on either direction.
+
 risks of a portfolio is basis risk or residual risk, because most risks with each intrument cancel each other, basis risk is usually low.
+
 ** a simple characterization
-arbi trading can be considered as trading on portfolios, sell/short(sell long position in the portfolio/but short position), buy/long(buy long\
-position/sell short position). 
-high-frequency arbi-urs are essentially dealers on portfolios, they concern more about shorterm reversals than fair values. Traders who take large\
-arbi positions are value traders on portfolios, they are usually not as quick as h-f arbi-gurs. Same relation as dealer-value trader.
+
+arbi trading can be considered as trading on portfolios, sell/short(sell long position in the portfolio/but short position), buy/long(buy longposition/sell short position). 
+
+high-frequency arbi-urs are essentially dealers on portfolios, they concern more about shorterm reversals than fair values. Traders who take largearbi positions are value traders on portfolios, they are usually not as quick as h-f arbi-gurs. Same relation as dealer-value trader.
+
 ** type of arbitrages
+
 *** Pure Arbitragues
-a mean reverting variable always "try" to return to its mean, the best estimation in a long run is always the mean. Pure arbi is on mean-revering\
-variable.
-shipping arbitrage, (virtually) shipping products between two market where prices are different. Virtual arbitrageurs unwind position when price \
-converge, therefore no need to ship(the price diff can be lower than shipping cost in this case); they need to ship it when their position is in \
-loss. Actual arbitrageurs drive shipping cost down. 
+
+a mean reverting variable always "try" to return to its mean, the best estimation in a long run is always the mean. Pure arbi is on mean-reveringvariable.
+
+shipping arbitrage, (virtually) shipping products between two market where prices are different. Virtual arbitrageurs unwind position when price converge, therefore no need to ship(the price diff can be lower than shipping cost in this case); they need to ship it when their position is in loss. Actual arbitrageurs drive shipping cost down. 
+
 delivery arbitrage involves contracts of future delivery of commodity.
-Convertion arbitrage, involves buy/sale of instruments with same risk in different forms. Oppotunities arise when traders in the market prefer one \
-risk form to others, the arbi spread widen, and arbi-guers then sell the favorite risk form and buy the unprefered ones. The arbi bound is determined\
-by cost of convertion and cost of carrying.
-Example of convertion arbitrage include stock option arbitrage, where an option may be prefered by the market, arbi-geurs then sell optioins and \
-construct a long position in the underlying stock. Pricing model can be very complex...a cyclic arbitrage in fx is also a convertion.
+
+Convertion arbitrage, involves buy/sale of instruments with same risk in different forms. Oppotunities arise when traders in the market prefer one risk form to others, the arbi spread widen, and arbi-guers then sell the favorite risk form and buy the unprefered ones. The arbi bound is determinedby cost of convertion and cost of carrying.
+
+Example of convertion arbitrage include stock option arbitrage, where an option may be prefered by the market, arbi-geurs then sell optioins and construct a long position in the underlying stock. Pricing model can be very complex...a cyclic arbitrage in fx is also a convertion.
+
 ** speculative arbitrage
-Involves instruments whose variables are non-stationary(random walk) in the long run, but mean-reverting in the short run. The non-stationriness come from \
-the instruments specific factors that cause the price to be random walking while the mean-reverting is caused by inconsistent pricing of the common factors in the \
-hedge portfolio or the mispricing of one or more specific factors.
+
+Involves instruments whose variables are non-stationary(random walk) in the long run, but mean-reverting in the short run. The non-stationriness come from the instruments specific factors that cause the price to be random walking while the mean-reverting is caused by inconsistent pricing of the common factors in the hedge portfolio or the mispricing of one or more specific factors.
+
 *** spread
-buy/sale instruments that are similar in all respect except for one factor. maturity spread, instruments only diff in maturity date, high correlated. Credit spread, \
-instruments diff only in the credit of the issuers. maturity spread are least risky speculative arbi, only the factors btw the two maturity will cause risks. In bond\
-market, it is called yield-curve spread.
+
+buy/sale instruments that are similar in all respect except for one factor. maturity spread, instruments only diff in maturity date, high correlated. Credit spread, instruments diff only in the credit of the issuers. maturity spread are least risky speculative arbi, only the factors btw the two maturity will cause risks. In bondmarket, it is called yield-curve spread.
+
 *** pairs trade
-pairs traders identify pairs that are mispriced from each other, due to an inconsistent pricing of a common factor or a mispriced specific factor, example, when value\
-traders bid up the price(due to a common factor change) while other instruments are not updated yet, or when uninformed traders change price for a specific instrument. 
-pairs trading are risky because the change could be permanent and not mean reverting, so they pay close attention to order book to find out whether change is done by \
-informed trader or uninformed trader. They don like markets who reflect informtion quick...so FX is not good for them!!
+
+pairs traders identify pairs that are mispriced from each other, due to an inconsistent pricing of a common factor or a mispriced specific factor, example, when valuetraders bid up the price(due to a common factor change) while other instruments are not updated yet, or when uninformed traders change price for a specific instrument. 
+
+pairs trading are risky because the change could be permanent and not mean reverting, so they pay close attention to order book to find out whether change is done by informed trader or uninformed trader. They don like markets who reflect informtion quick...so FX is not good for them!!
+
+
 
 *** statistical arbi
-they use factor models to generalize pairs trading to many instruments. Factor models are stats models represent the return of intruments by weighted sum of common \
-factors plus an instrument-specific factor. Arbitraguers need to estimate the weights. 
-Some factors are specified(interest, inflation...), some are generated from models. They use factor analysis/PCA/canonical correlations. They sometimes try to forecast\
-future factor values. 
+
+they use factor models to generalize pairs trading to many instruments. Factor models are stats models represent the return of intruments by weighted sum of common factors plus an instrument-specific factor. Arbitraguers need to estimate the weights. 
+
+Some factors are specified(interest, inflation...), some are generated from models. They use factor analysis/PCA/canonical correlations. They sometimes try to forecastfuture factor values. 
+
 They quantify the size of the trade to control the hedge portfolios for low risk and high expected return, use numerical optimization to fine tune their decistions.
 
+
+
 *** risk arbi(mostly skipped)
+
 speculative arbi are known as risk arbi; but risk arbi also have a specific meaning of arbitrage on potential merge of firms.
 
+
+
 ** arbitrage risks
+
 *** implementation risk
-Implementation risk is due to the execution cost of the transactions. Market order often lead to price that is unfavorable, while limit orders have the risk of failing\
-to execute, which is especially bad when one or some legs are completed already. In liquid market, market orders will be sensible, while in illiquide market, smart\
-order management is required.
+
+Implementation risk is due to the execution cost of the transactions. Market order often lead to price that is unfavorable, while limit orders have the risk of failingto execute, which is especially bad when one or some legs are completed already. In liquid market, market orders will be sensible, while in illiquide market, smartorder management is required.
+
 *** basis risk and arbitrage scale
+
 basis risk happens when basis widens instead of narrows, because an instrument specific factor force the divergence or a mistake in common factors. 
-traders can control basis risk by controlling their position size, the more risky basis, the less size their portforlio should be. They should never leverage to the max\
-extent that their capital permits.
+
+traders can control basis risk by controlling their position size, the more risky basis, the less size their portforlio should be. They should never leverage to the maxextent that their capital permits.
+
 *** model risk
-model risk happens when trader mistakenly understand the basis and the relation between instrments. They need to accurately estimate the fair value, identify what caused\
-a basis change and is it really a arbi oppotunity? They should use all information they can find to estimate the fair value. 
+
+model risk happens when trader mistakenly understand the basis and the relation between instrments. They need to accurately estimate the fair value, identify what causeda basis change and is it really a arbi oppotunity? They should use all information they can find to estimate the fair value. 
+
 *** carrying cost risk
+
 happens when the carrying cost is higher than expected: longer holding period/interest rate increase/unexpected physical cost/unexpected security borrow cost.
-price increase may profit the long position, but if the loss in the short position get too high, a forced liquidation could happen, which is costly and unwanted. Never \
-leverage to more than your capital permits, staying power is vital!!
+
+price increase may profit the long position, but if the loss in the short position get too high, a forced liquidation could happen, which is costly and unwanted. Never leverage to more than your capital permits, staying power is vital!!
+
 slow convergence also increase cost, as traders need to hold it longer.
+
 unexpected buy-ins happens when the lend wants to sell an instrument in the hedge portfolio, and forces an early end of arbitrage, and could be very costly.
+
 ** the cause of arbitrage oppotunities.
-slow price adjustment, some common factor change while not all instruments change at the same time to reflect the changes, arbi should identify this case and trade\
-quickly, using market order maybe.
+
+slow price adjustment, some common factor change while not all instruments change at the same time to reflect the changes, arbi should identify this case and tradequickly, using market order maybe.
+
 uninformed trader demand liquidity, some instrument change because uninfomed traders changed it, arbi are liquidity provider and can trade slow, with limit orders.
+
 ** quantity charactorization of arbitrages
+
 arbitraguers enforce one price rule in multiple markets, they ship or repackage risk from one market to another.
+
 ** arbitraguers/dealers/brokers
+
 liquidity is all about time and place, dealer solve the time issue by facilitating traders arriving at different time while arbitraguers solve the place issue.
+
 arbitraguers compete with dealers to provide liquidity, dealer generally dont want arbi in their market but could be beneficial when they want to rebalance. 
-dealer-arbitraguers are generally very profitable as they can choose serving liquidity as dealer or constrcut a hedge protfolio and act as arbi, which case they \
-are essentially informed traders.
+
+dealer-arbitraguers are generally very profitable as they can choose serving liquidity as dealer or constrcut a hedge protfolio and act as arbi, which case they are essentially informed traders.
+
 ** competition among arbitraguers
-competition drives the arbi spread narrow, and in markets where relative value are easy to esimate, successful arbi are those who have quick access to the market,\
-while in the markets where relative value are hard to estimate, successful arbi are those who can more accurately estimate the fair value, and identify what caused\
+
+competition drives the arbi spread narrow, and in markets where relative value are easy to esimate, successful arbi are those who have quick access to the market,while in the markets where relative value are hard to estimate, successful arbi are those who can more accurately estimate the fair value, and identify what caused
 a change in price.
+
 natual arbi usually have lower cost as they construct their hedge portfolio while doing other natual business.
 
+
+
 * buy-side traders
+
 what order to submit, when to submit; with limit order, if it does not get filled, what's next? For large trade, whether to disclose the full size/and how?
+
 consider implement a statistical model on execution prod/execution price balance.
+
 ** market vs limit order
+
 besides immediacy, bid/ask spread drives the decision, wide->limit/narrow->market. 
+
 the price a limit order should be placed depends on the balance between execution probability and exec price(a probability model may be used)?
+
 determine the prob(limit order gets filled): total limit order size at better price, price volatility and trader interest in the instrument, and expirience. 
+
 ** order exposure decision
+
 exposure downside: order anticipant may respond to take advantage, and some liquid provider will avoid trading in the fear of price discrimination.
+
 upside: easy to arrange trade, and may attract reactive traders.
+
 ** cost of order exposure
+
 may reveal the motive behind the trade, other traders can infer it even large trader trade anonymouly, then there hold liquidity/compete.
+
 may reveal future price impact, frontrunner can then take advantange.
-may provide valueable trading option, quote matcher can trade before them(on same direction), then the limit order becomes an option, if price move in favor\
-quote matcher profits, if un-favor move, then they can 'execute' the option.
+
+may provide valueable trading option, quote matcher can trade before them(on same direction), then the limit order becomes an option, if price move in favorquote matcher profits, if un-favor move, then they can 'execute' the option.
+
 ** defensive strategies
+
 evasive strategies, use electronic market that hides order, or order solicit system to survey interest, (build relation with broker/trader...)
+
 deceptive, send a small order in the opposite side first, lie about order size, bluff to go away, cancel orders to cause confusion.
-offensive, send an order in the wrong side, frontrunner may follow, then fill the order from frontrunner, leave them at the wrong side. Difficult to implement\
-too many variables can change.
+
+offensive, send an order in the wrong side, frontrunner may follow, then fill the order from frontrunner, leave them at the wrong side. Difficult to implementtoo many variables can change.
+
 ** market rules 
+
 time precedence order rule. large minimum price change can also prevent frontrunner...so there may be many frontrunner in FX?
 
+
+
 * liquidity
-liquidity is the objective of the bilateral search in a market, the many dimention of liquidity relate to each other through the mechanics of this bilateral\
-search. Trader need to measure liquidity to evaluate their strategies at a given liquidity level.
+
+liquidity is the objective of the bilateral search in a market, the many dimention of liquidity relate to each other through the mechanics of this bilateralsearch. Trader need to measure liquidity to evaluate their strategies at a given liquidity level.
+
+
 
 ** the search for liquidity
+
 unilateral search becomes more and more expensive as you progress, the prob of finding an even better price decrease quickly, cost usually remain.
+
 In bilateral search, you may search actively/passively, but there is a risk that you cannot return to your best match if you choose continue searching. 
-In bilateral, when consider stopping rule(expected benefit of keep on searching VS. expected cost) has to factor the prob that you cannot return to the \
-best match so far.
+
+In bilateral, when consider stopping rule(expected benefit of keep on searching VS. expected cost) has to factor the prob that you cannot return to the best match so far.
+
 ** liquidity dimentions
+
 search can be considered as a funtion takes input(time or resource) and produce output(better price/enough size). 
-three dimentions: immediacy, how quickly for a given sized to get filled(time); width, the cost for trading a given size(price); depth, the size that can be \
+
+three dimentions: immediacy, how quickly for a given sized to get filled(time); width, the cost for trading a given size(price); depth, the size that can be 
 filled for a given price(size). 
-width and depth are acutually closely related, they are dual. Solving one means solving the other. Impatient traders focus on immediacy, small traders focus \
-on width! and large traders focus on depth.
+
+width and depth are acutually closely related, they are dual. Solving one means solving the other. Impatient traders focus on immediacy, small traders focus on width! and large traders focus on depth.
+
 Can model liquidity as a joint-prod of trade, given size/price/immediacy...P(trade|size,price,immediacy).
+
 Some also factor resiliency in, it means how quickly the market restore when uninformed trader move the price.
+
 ** who/how/why of liquidity
-dealers and value traders offer liquidity passively, they expect to profit when impatient traders take liquidity, they will not trade if noone wants the \
-liquidity. precommitted liquidity suppliers want to trade anyway(speculate,invest,hedge...), but they are patient to wait, they usually issue market order\
-if their limit orders are not filled.
+
+dealers and value traders offer liquidity passively, they expect to profit when impatient traders take liquidity, they will not trade if noone wants the liquidity. precommitted liquidity suppliers want to trade anyway(speculate,invest,hedge...), but they are patient to wait, they usually issue market orderif their limit orders are not filled.
+
 *** market maker
-MM are dealers who mainly solve immediacy issue, they usually trade in small size and avoid informed traders, they want to balance their portfolio quickly\
-after a trade. 
+
+MM are dealers who mainly solve immediacy issue, they usually trade in small size and avoid informed traders, they want to balance their portfolio quicklyafter a trade. 
+
 *** block dealer(skipped, should be irrelevant)
+
 *** value traders
-value traders generally offer liquidity, to take advantage of a mispriced information, when other traders offer wrong price. They are the ultimate liquidity\
-suppliers, and they solve the depth issue. They also make market more resillient.
-The price value traders will trade are outside spread, they are wider than market maker spread in that they usually trade in large size, and hold longer period\
-therefore have larger position risk.
+
+value traders generally offer liquidity, to take advantage of a mispriced information, when other traders offer wrong price. They are the ultimate liquiditysuppliers, and they solve the depth issue. They also make market more resillient.
+
+The price value traders will trade are outside spread, they are wider than market maker spread in that they usually trade in large size, and hold longer periodtherefore have larger position risk.
+
 *** precommitted liquidity suppliers
-they usually offer the most aggresive price, in the hope that trade will happen. Dealers are usually quicker than precommitted, they generally have advantage \
-because they can wait and react on new market order and adjust their position. 
+
+they usually offer the most aggresive price, in the hope that trade will happen. Dealers are usually quicker than precommitted, they generally have advantage because they can wait and react on new market order and adjust their position. 
+
 Precommitted solve immediacy, but usually not depth.
+
 *** arbitraguers
-arbitraguers take liquidity from one and move to another place(dealers are arbitraguers move liquidity on time). They allow traders in one market to access the\
-depth in another market.
+
+arbitraguers take liquidity from one and move to another place(dealers are arbitraguers move liquidity on time). They allow traders in one market to access thedepth in another market.
+
+
 
 * volatility
-the tendency of price change unexpectedly, price change caused by new information or by uninformed traders(the distinction is not clear, unless fully informed, informed\
+
+the tendency of price change unexpectedly, price change caused by new information or by uninformed traders(the distinction is not clear, unless fully informed, informed
 trader can have different pricing).
-Option traders especially concern volatility because option value depends on volatility of underlying instrument; Technical traders pay attention to volatility as well \
-because they want to interpret volume, and volume is closely correlated with volatility.
+
+Option traders especially concern volatility because option value depends on volatility of underlying instrument; Technical traders pay attention to volatility as well because they want to interpret volume, and volume is closely correlated with volatility.
+
 it is important to distinct fundemental volatility and transitory volatility, traders need to understand them to predict future volatility and evaluate strategies.
 
+
+
 ** fundemental volatility
-when only a few people learn the new information, price change usually on high volume, as they try to take as much as possible and there is enough people on the other \
-side. And dealer infer the price change from order book, and factor it in their adverse selection component of the spread.
+
+when only a few people learn the new information, price change usually on high volume, as they try to take as much as possible and there is enough people on the other side. And dealer infer the price change from order book, and factor it in their adverse selection component of the spread.
+
 Fundemental volatility is generally unpredictable, because expected information is already in the price, only unexpected information will change price.
+
 Storage cost plays an important rule in commodity market, especially those of high storage cost.
-Fundemental volatility subjects to many fundemental uncertainty...new research for tech firm(stock), high PE means high prob of future unexpected news(Stock), political\
-uncerntainty(FX/Bond/Stock).
+
+Fundemental volatility subjects to many fundemental uncertainty...new research for tech firm(stock), high PE means high prob of future unexpected news(Stock), politicaluncerntainty(FX/Bond/Stock).
+
+
 
 ** transitory volatility
-Transitory volatility happens when uninformed traders push price away from fundemental price, and value traders/arbitraguers push them back. High transitory volatility \
-means high transaction cost, and indicates illiquid markets. Liquid market usually have small transitory volatility.
+
+Transitory volatility happens when uninformed traders push price away from fundemental price, and value traders/arbitraguers push them back. High transitory volatility means high transaction cost, and indicates illiquid markets. Liquid market usually have small transitory volatility.
+
 ** Measuring volatility and its components
+
 Total volatility can be meansured by variance/standard deviation, and mean-absolute-deviation(average absolute diff btw price change and average price change???)
-Theorical models measuring fundemental/transitory works to identify a random walk compoment and a revertion(because transitory change eventually return to fundemental\
-leaving a negative correlated sequence) from price movement series.
-Roll's Serial Covariance Spread Estimator Model shows how to estimate transitory volatility component from covariance of price series(p_t,p_{t+1}), assuming fundemental\
-volitility is completely random with zero mean change. Then the fundemental volitility variance can also be estimated. It only compares nearby prices, therefore genenrally\
-underestimate volatility.
+
+Theorical models measuring fundemental/transitory works to identify a random walk compoment and a revertion(because transitory change eventually return to fundementalleaving a negative correlated sequence) from price movement series.
+
+Roll's Serial Covariance Spread Estimator Model shows how to estimate transitory volatility component from covariance of price series(p_t,p_{t+1}), assuming fundemental
+volitility is completely random with zero mean change. Then the fundemental volitility variance can also be estimated. It only compares nearby prices, therefore genenrallyunderestimate volatility.
+
+
+
+
 
 
 
 * Liquidity and transaction cost meansurement
+
 Traders should measure their transaction cost to know if their strategy does/will work, it is usually the most important factor deciding if your clever stragegy will
+
 turn out making money.
+
 There are explicit/implicit cost, and cost of missing oppotunities, the latter two are obviously harder to evaluate.
 
+
+
 ** implicit cost estimation methods
+
 specified benchmark methods are commonly used, when traders specify a price(open/vwap/close/avg of open/avg of high-low-close/avg of bid-ask), and cost is calculated
+
 as the signed product of the different of the trade price and the benchmark, and the trade size.
+
 Econimetric transaction cost estimation methods can be considered as ways to estimate the benchmark price rather than specifying it.
+
 Lee and Ready algo is used to identify trade side(who initiated the trade).
 
+
+
 ** measure with benchmark
+
 effective spread is calculated against the midpoint at the trade time, after trade(5,10,15,60min) midpoint is used for realized spread. 
+
 Midpoint can be open price/close price/VWAP/...
-Implementation shortfalls are the diff btw an imaginary value of a portfolio and the real value of the portfolio, where midpoint for each instrument is specified. When\
-the trade occurs, it is the (trade price - midpoint)*size, when it does not(fully) occur, it is the (current price - midpoint)*size -- cost of missing oppotunities.
+
+Implementation shortfalls are the diff btw an imaginary value of a portfolio and the real value of the portfolio, where midpoint for each instrument is specified. Whenthe trade occurs, it is the (trade price - midpoint)*size, when it does not(fully) occur, it is the (current price - midpoint)*size -- cost of missing oppotunities.
+
 ** properties of benchmark based estimators
+
 Noises, some other factor will affect the price, other than your trade..therefore effective spread is most un-noisy...given it's short time span.
-Large order split, effective spread or VWAP which tends to ignore the price impact of the trade itself are poor estimators, impl shortfalls are better because it uses \
-midpoint determined before any trade is done.
-Momentum/contrarian traders have biased estimater when using midpoints determined before their trade...their trading strategy makes sure they alwasy buy/sell when the \
+
+Large order split, effective spread or VWAP which tends to ignore the price impact of the trade itself are poor estimators, impl shortfalls are better because it uses midpoint determined before any trade is done.
+
+Momentum/contrarian traders have biased estimater when using midpoints determined before their trade...their trading strategy makes sure they alwasy buy/sell when the 
 current price is lower/higher.
+
 Informed trader tend to underestimate the cost because the price will usually follow their trade, when using midpoint that is determined afer their trade.
-Best estimator is impl shortfalls, if data/impl is not a problem, VWAP is used by institutional traders despite it is biased in some cases. Retailers use effective \
-spread most often. 
+
+Best estimator is impl shortfalls, if data/impl is not a problem, VWAP is used by institutional traders despite it is biased in some cases. Retailers use effective spread most often. 
+
 ** econometric methods
-Using statistical method to estimate midpoint, based on order flow. Non order flow is not accurate and useful. See Glosten-Harris for an example: a regression of a model\
-that comprises three component: fundemental value change informed from order, transaction cost spread, and an error term.
+
+Using statistical method to estimate midpoint, based on order flow. Non order flow is not accurate and useful. See Glosten-Harris for an example: a regression of a modelthat comprises three component: fundemental value change informed from order, transaction cost spread, and an error term.
+
 ** missed trade oppotunity cost
-Ideally should measure against same benchmark price, with a specified interval(s). Marginal cost is the difference between the trade cost and the missed oppotunity cost, \
-traders should trade more or less aggressively according to the marginal cost of their strategy.
+
+Ideally should measure against same benchmark price, with a specified interval(s). Marginal cost is the difference between the trade cost and the missed oppotunity cost, traders should trade more or less aggressively according to the marginal cost of their strategy.
+
 ** transaction cost prediction
-Traders need prediction to evaluate trading strategies, they use explicit information: market data/limit order book, this usually overestimate the cost; they also need to \
+
+Traders need prediction to evaluate trading strategies, they use explicit information: market data/limit order book, this usually overestimate the cost; they also need to 
 use implicit information: using ecomometric regression model to fit past transaction cost against observable variables like order size/price placement/money flow/price move.
+
 General variable that indicates whole market cost are usually volume and volatility.
+
 ** final comments
+
 portfolio selection and trade implementation(transaction cost analysis) are closely related, a strategy should be able to tell how aggressively traders should trade. 
 
+
+
 * Performance evaluation and prediction
+
 ** the performance evaluation problem
-No one can anticipate all factors, unexpected factor change cause random changes of price, therefore separating luck and skill is an important when evaluating\
-performance. Some good performance is purely lucky with no skill and some bad is still well managed but just a bad luck.
+
+No one can anticipate all factors, unexpected factor change cause random changes of price, therefore separating luck and skill is an important when evaluatingperformance. Some good performance is purely lucky with no skill and some bad is still well managed but just a bad luck.
+
 ** Performance evaluation methods
-When no transfer in/out of portfolio, it is easy, just calculate all case flows. When there is transfers, IRR(internal rate of return) is used: it is the \
-compound interest of a savings account to exactly replicate the performance of the portfolio, a time-weighted geo average.
+
+When no transfer in/out of portfolio, it is easy, just calculate all case flows. When there is transfers, IRR(internal rate of return) is used: it is the compound interest of a savings account to exactly replicate the performance of the portfolio, a time-weighted geo average.
+
 Total return comprises of current yield, which is cash flow with holding the assets(interest/dividend), and capital gain, which is the rest of the return.
+
 *** relative performance measurement
+
 To separate skill and luck, a benchmark return is usually set to compare portfolio return with; benchmark usually measures the return when assets are not activly managed.
+
 Market adjusted returns are total returns minus a common market index(SP500, MSCI), FX seems to be lacking a good index...or maybe the USG coupon?
+
 Risk adjusted returns are total returns times avg betas of portfolio, while beta measures the extent the security fluctate with market(beta=0.5 means security rise/fall
+
 0.5 percent when the market rise/fall 1 percent.). 
+
 Managers can change market betas by swapping securities with diff betas. (beta*market return - market return) then measures the managers ability to select securities. 
+
 RawReturn=(RawReturn - Beta*MaketReturn)+(Beta*MarketReturn-MarketReturn)+MarketReturn = ExcessReturn+MarketTimingReturn+MarketReturn
+
 ** the Performance prediction problem
-Evaluate past performance to predict future only works when factors determining the performance in the past also work in the future!! And a program trader with long \
-historical data testing seems to satisfy the conditions, unless market itself changed.
+
+Evaluate past performance to predict future only works when factors determining the performance in the past also work in the future!! And a program trader with long historical data testing seems to satisfy the conditions, unless market itself changed.
+
 ** statistical performance evaluation
-the student T-test, how can this be used to evaluate and predict the performance of a strategy? In other words, how do you evaluate the market adjusted return of your \
-stragegy? A high frequency program need much less data to evaluate.
+
+the student T-test, how can this be used to evaluate and predict the performance of a strategy? In other words, how do you evaluate the market adjusted return of your stragegy? A high frequency program need much less data to evaluate.
+
 T-test shows with less than ten years data, investors are better off to choose an index fund most of the time.
-Problem with statistical methods are manager skills generally contribute less than luck, in essential, it is a low signal-to-noise ratio problem. Only long historical \
-return data can increase the chance of finding good managers, increase observation frequency cannot improve the situation a lot. 
-But above analysis is base on equity, HF trading is different, if every HF trade generate some return, best time to calculate return is when it is realized, given the \
+
+Problem with statistical methods are manager skills generally contribute less than luck, in essential, it is a low signal-to-noise ratio problem. Only long historical return data can increase the chance of finding good managers, increase observation frequency cannot improve the situation a lot. 
+
+But above analysis is base on equity, HF trading is different, if every HF trade generate some return, best time to calculate return is when it is realized, given the 
 shot time span, evaluations of HF strategy can be more reliable.
+
 ** more important problems about statistical evalution
+
 The return distribution is assumed to be normal in the T-test, in reality however, it rarely is normal. It is more flat(extreme cases happen more than expected).
-Most of the time the distrbution is symmetric, it can be asymmetric with some particular trading strategies however. The peso problem happens when a portfolio gains small\
-return most of the time and lose a lot once in a long while. Statistical methods to eveluate such a portfolio will be very unreliable.
+
+Most of the time the distrbution is symmetric, it can be asymmetric with some particular trading strategies however. The peso problem happens when a portfolio gains smallreturn most of the time and lose a lot once in a long while. Statistical methods to eveluate such a portfolio will be very unreliable.
+
 ** econometric approaches to performance prediction
+
 Better traders in the market generally win in a long run, the comparative advantage they have will make sure that happens.
-Traders should focus on 1)why their strategy will profit; 2)why other traders will lose to them. They are related and equally important. A good manager should be able to\
-tell his comparative advantage, and not confusing it with absolute advantage.
+
+Traders should focus on 1)why their strategy will profit; 2)why other traders will lose to them. They are related and equally important. A good manager should be able totell his comparative advantage, and not confusing it with absolute advantage.
+
 In markets, a zero-sum game, you do not win because you are good, you win because you are better.
+
 
