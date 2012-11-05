@@ -8,7 +8,9 @@ inferior price?
 broker > proprietary, mostly 
 ** market order
 market order trade at current best, they pay (half, assuming spread does not change) bid/offer spread.
+
 another way: true value lies in the spread, assuming midpoint given no other infor.
+
 has execution risk when market move before execution.
 ** limit order
 marketable limit order is better then current market bid/offer
